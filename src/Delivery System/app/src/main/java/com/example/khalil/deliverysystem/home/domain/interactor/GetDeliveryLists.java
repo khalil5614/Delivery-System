@@ -36,13 +36,19 @@ public class GetDeliveryLists extends BaseUseCase<GetDeliveryLists.RequestModel,
 
     public static class RequestModel {
         private int offset;
+        private int limit;
 
-        public RequestModel(int offset) {
+        public RequestModel(int offset, int limit) {
             this.offset = offset;
+            this.limit = limit;
         }
 
         public int getOffset() {
             return offset;
+        }
+
+        public int getLimit() {
+            return limit;
         }
     }
 

@@ -15,7 +15,10 @@ public interface DeliveryListRepository {
 
     class DeliveryListResponse {
         public List<DeliveryModel> deliveryList;
-        public int totalResult;
+
+        public void setDeliveryList(List<DeliveryModel> deliveryList) {
+            this.deliveryList = deliveryList;
+        }
     }
     void getDeliveryList(GetDeliveryLists.RequestModel requestModel, DeliveryListCallback callback);
 

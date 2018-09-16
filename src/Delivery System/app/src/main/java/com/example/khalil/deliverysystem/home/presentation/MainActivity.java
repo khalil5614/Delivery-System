@@ -3,6 +3,8 @@ package com.example.khalil.deliverysystem.home.presentation;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,17 +17,32 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.khalil.deliverysystem.R;
+import com.example.khalil.deliverysystem.home.domain.interactor.GetDeliveryLists;
 import com.example.khalil.deliverysystem.home.domain.model.DeliveryModel;
+import com.example.khalil.deliverysystem.home.repository.DeliveryListRepository;
+import com.example.khalil.deliverysystem.home.repository.DeliveryListRepositoryImp;
+import com.example.khalil.deliverysystem.home.repository.DeliveryListRepositoryMockImp;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DeliveryHomeContract.View {
+    private DeliveryHomePresenter deliveryHomePresenter;
+    private RecyclerView mDeliveryRecycler;
+    private DeliveryRecyclerAdapter adapter;
+    private DeliveryRecyclerAdapter.DeliveryItemClickListener deliveryItemClickListener;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initToolbar();
+        initView();
+        initPresenter();
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,6 +63,17 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initView() {
+        mDeliveryRecycler = findViewById(R.id.delivery_list_recycler);
+
+        adapter = new DeliveryRecyclerAdapter();
+        deliveryItemClickListener = new DeliveryItemClickListenerImp();
+        adapter.setDeliveryItemClickListener(deliveryItemClickListener);
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        mDeliveryRecycler.setLayoutManager(layoutManager);
+        mDeliveryRecycler.setAdapter(adapter);
     }
 
     @Override
@@ -105,6 +133,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void initPresenter() {
+        //   DeliveryListRepository deliveryListRepository = new DeliveryListRepositoryImp();
+        DeliveryListRepository deliveryListRepository = new DeliveryListRepositoryMockImp();
+        GetDeliveryLists getDeliveryLists = new GetDeliveryLists(deliveryListRepository);
+        deliveryHomePresenter = new DeliveryHomePresenter(this, getDeliveryLists);
+        deliveryHomePresenter.loadDeliveryList();
+    }
+
     @Override
     public void showDeliveryList(List<DeliveryModel> deliveryList) {
 
@@ -118,5 +154,12 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private class DeliveryItemClickListenerImp implements DeliveryRecyclerAdapter.DeliveryItemClickListener {
+        @Override
+        public void onItemClick(DeliveryModel DeliveryModel) {
+
+        }
     }
 }

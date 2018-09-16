@@ -13,6 +13,7 @@ public class DeliveryHomePresenter implements DeliveryHomeContract.Presenter {
     GetDeliveryLists getDeliveryLists;
     private List<DeliveryModel> deliveryModelList = new ArrayList<>();
     private GetDeliveryListsCallback deliveryListsCallback;
+    private int limit = 10;
 
     public DeliveryHomePresenter(DeliveryHomeContract.View view, GetDeliveryLists getDeliveryLists) {
         this.view = view;
@@ -27,7 +28,7 @@ public class DeliveryHomePresenter implements DeliveryHomeContract.Presenter {
 
     @Override
     public void loadDeliveryList() {
-        GetDeliveryLists.RequestModel requestModel = new GetDeliveryLists.RequestModel(deliveryModelList.size());
+        GetDeliveryLists.RequestModel requestModel = new GetDeliveryLists.RequestModel(deliveryModelList.size(),limit);
         getDeliveryLists.setRequestValues(requestModel);
         getDeliveryLists.executeUseCase();
     }
