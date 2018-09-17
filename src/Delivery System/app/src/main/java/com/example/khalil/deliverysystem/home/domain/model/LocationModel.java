@@ -1,6 +1,8 @@
 package com.example.khalil.deliverysystem.home.domain.model;
 
-public class LocationModel {
+import java.io.Serializable;
+
+public class LocationModel implements Serializable {
     private double mLattitude;
     private double mLongitude;
     private String mAddress;

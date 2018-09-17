@@ -28,7 +28,7 @@ public class DeliveryHomePresenter implements DeliveryHomeContract.Presenter {
 
     @Override
     public void loadDeliveryList() {
-        GetDeliveryLists.RequestModel requestModel = new GetDeliveryLists.RequestModel(deliveryModelList.size(),limit);
+        GetDeliveryLists.RequestModel requestModel = new GetDeliveryLists.RequestModel(deliveryModelList.size(), limit);
         getDeliveryLists.setRequestValues(requestModel);
         getDeliveryLists.executeUseCase();
     }
@@ -36,7 +36,12 @@ public class DeliveryHomePresenter implements DeliveryHomeContract.Presenter {
     private class GetDeliveryListsCallback implements BaseUseCase.UseCaseCallback<GetDeliveryLists.ResponseModel, DeliveryException> {
         @Override
         public void onSuccess(GetDeliveryLists.ResponseModel response) {
-            view.showDeliveryList(response.getDeliveryList());
+            for (DeliveryModel model : response.getDeliveryList()) {
+                if (!deliveryModelList.contains(model)) {
+                    deliveryModelList.add(model);
+                }
+            }
+            view.showDeliveryList(deliveryModelList);
         }
 
         @Override

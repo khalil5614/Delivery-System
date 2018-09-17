@@ -13,6 +13,7 @@ public class MockDataGenerator {
         for (int i = 0; i < limit; i++) {
             int id = offset + i;
             DeliveryModel deliveryModel = new DeliveryModel();
+            deliveryModel.setmId(id);
             deliveryModel.setmDescription("Delivery Item description of item " + id);
             deliveryModel.setmThumbImage("https://www.what-dog.net/Images/faces2/scroll0015.jpg");
 

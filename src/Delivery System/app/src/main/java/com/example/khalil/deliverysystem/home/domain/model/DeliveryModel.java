@@ -1,6 +1,9 @@
 package com.example.khalil.deliverysystem.home.domain.model;
 
-public class DeliveryModel {
+
+import java.io.Serializable;
+
+public class DeliveryModel implements Serializable {
     private int mId;
     private String mDescription;
     private String mThumbImage;
@@ -36,5 +39,17 @@ public class DeliveryModel {
 
     public void setmLocation(LocationModel mLocation) {
         this.mLocation = mLocation;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        else if (obj instanceof DeliveryModel) {
+            DeliveryModel model = (DeliveryModel) obj;
+            if (this.mId == model.getmId())
+                return true;
+        }
+        return false;
     }
 }

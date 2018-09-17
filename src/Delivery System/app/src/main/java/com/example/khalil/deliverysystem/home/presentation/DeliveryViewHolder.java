@@ -13,13 +13,12 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder {
 
     public View layout;
     public TextView descriptionTV;
-    public ImageView deliveryItemImv;
-
+    public ImageView receiverImageImv;
 
     public DeliveryViewHolder(View itemView) {
         super(itemView);
         layout = itemView;
         descriptionTV = (TextView) itemView.findViewById(R.id.description_tv);
-        deliveryItemImv = (ImageView) itemView.findViewById(R.id.delivery_item_imv);
+        receiverImageImv = (ImageView) itemView.findViewById(R.id.receiver_image_imv);
     }
 }

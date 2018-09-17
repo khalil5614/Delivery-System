@@ -1,10 +1,12 @@
 package com.example.khalil.deliverysystem.home.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +24,7 @@ import com.example.khalil.deliverysystem.home.domain.model.DeliveryModel;
 import com.example.khalil.deliverysystem.home.repository.DeliveryListRepository;
 import com.example.khalil.deliverysystem.home.repository.DeliveryListRepositoryImp;
 import com.example.khalil.deliverysystem.home.repository.DeliveryListRepositoryMockImp;
+import com.example.khalil.deliverysystem.utils.Constants;
 
 import java.util.List;
 
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.things_to_deliver);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initView() {
         mDeliveryRecycler = findViewById(R.id.delivery_list_recycler);
+        mDeliveryRecycler.addOnScrollListener(new RecyclerViewScroller());
 
         adapter = new DeliveryRecyclerAdapter();
         deliveryItemClickListener = new DeliveryItemClickListenerImp();
@@ -143,7 +148,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showDeliveryList(List<DeliveryModel> deliveryList) {
-
+        adapter.setDeliveryModelList(deliveryList);
     }
 
     @Override
@@ -158,8 +163,55 @@ public class MainActivity extends AppCompatActivity
 
     private class DeliveryItemClickListenerImp implements DeliveryRecyclerAdapter.DeliveryItemClickListener {
         @Override
-        public void onItemClick(DeliveryModel DeliveryModel) {
-
+        public void onItemClick(DeliveryModel deliveryModel) {
+            Intent intent = new Intent(MainActivity.this, DeliveryDetailsActivity.class);
+            intent.putExtra(Constants.DELIVERY_ITEM_DETAILS, deliveryModel);
+            startActivity(intent);
         }
     }
+
+    private class RecyclerViewScroller extends RecyclerView.OnScrollListener {
+        private boolean mLoading = false;
+        private int previousState = 0;
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+
+            if (dy > 0 && layoutManager.getChildCount() > 0) {
+                // Calculations..
+                int indexOfLastItemViewVisible = layoutManager.getChildCount() - 1;
+                View lastItemViewVisible = layoutManager.getChildAt(indexOfLastItemViewVisible);
+                int adapterPosition = layoutManager.getPosition(lastItemViewVisible);
+                boolean isLastItemVisible = (adapterPosition == adapter.getItemCount() - 1);
+
+                // check
+                if (!mLoading && isLastItemVisible) {
+                    Log.d("Scroll end", "position=" + adapterPosition);
+                    onLoadMore();
+                }
+            }
+        }
+
+        private void onLoadMore() {
+            // controller.start();
+            deliveryHomePresenter.loadDeliveryList();
+            mLoading = true;
+        }
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (newState == RecyclerView.SCROLL_STATE_IDLE && previousState == RecyclerView.SCROLL_STATE_SETTLING && mLoading) {
+                mLoading = false;
+                onLoadMore();
+            }
+            Log.d("Scroll state", "previous= " + previousState + ", new state= " + newState);
+
+            previousState = newState;
+
+        }
+
+    }
+
 }

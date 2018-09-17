@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.khalil.deliverysystem.R;
 import com.example.khalil.deliverysystem.home.domain.model.DeliveryModel;
 
@@ -18,7 +20,7 @@ public class DeliveryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     private DeliveryItemClickListener deliveryItemClickListener;
 
     public interface DeliveryItemClickListener {
-        void onItemClick(DeliveryModel DeliveryModel);
+        void onItemClick(DeliveryModel deliveryModel);
     }
 
     public DeliveryRecyclerAdapter() {
@@ -30,6 +32,7 @@ public class DeliveryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public void setDeliveryModelList(List<DeliveryModel> deliveryModelList) {
         this.deliveryModelList = deliveryModelList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -51,6 +54,10 @@ public class DeliveryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
                 deliveryItemClickListener.onItemClick(deliveryModel);
             }
         });
+        Glide.with(viewHolder.layout.getContext())
+                .load(deliveryModel.getmThumbImage())
+                .apply(new RequestOptions().override(100, 100).centerCrop())
+                .into(viewHolder.receiverImageImv);
     }
 
     @Override

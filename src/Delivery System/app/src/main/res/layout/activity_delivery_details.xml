@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="@dimen/margin_5dp"
-    >
+    tools:context=".home.presentation.DeliveryDetailsActivity">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/location_mv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:liteMode="true"
+        app:mapType="none" />
 
     <ImageView
         android:id="@+id/receiver_image_imv"
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/location_mv" />
 
     <TextView
         android:id="@+id/description_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="3"
-        android:textSize="18sp"
         android:paddingLeft="@dimen/margin_5dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/receiver_image_imv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <View
-        android:id="@+id/divider_view"
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_marginTop="@dimen/margin_5dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/receiver_image_imv" />
+        app:layout_constraintTop_toBottomOf="@id/location_mv" />
 </android.support.constraint.ConstraintLayout>
