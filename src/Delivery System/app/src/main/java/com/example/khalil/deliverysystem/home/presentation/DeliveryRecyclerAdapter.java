@@ -34,6 +34,9 @@ public class DeliveryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.deliveryModelList = deliveryModelList;
         notifyDataSetChanged();
     }
+    public void setDeliveryModelList() {
+        notifyDataSetChanged();
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

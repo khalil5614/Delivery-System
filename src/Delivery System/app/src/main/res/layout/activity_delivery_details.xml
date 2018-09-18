@@ -7,31 +7,77 @@
     android:padding="@dimen/margin_5dp"
     tools:context=".home.presentation.DeliveryDetailsActivity">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/location_mv"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:liteMode="true"
-        app:mapType="none" />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/receiver_image_imv"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_mv" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/description_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:maxLines="3"
-        android:paddingLeft="@dimen/margin_5dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/receiver_image_imv"
-        app:layout_constraintTop_toBottomOf="@id/location_mv" />
+            <TextView
+                android:id="@+id/receiver_header_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_5dp"
+                android:paddingTop="@dimen/margin_5dp"
+                android:text="@string/receiver"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/receiver_image_imv"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receiver_header_tv" />
+
+            <TextView
+                android:id="@+id/description_header_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_5dp"
+                android:paddingTop="@dimen/margin_5dp"
+                android:text="@string/description"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/receiver_image_imv" />
+
+            <TextView
+                android:id="@+id/description_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_5dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_header_tv" />
+
+            <TextView
+                android:id="@+id/location_header_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_5dp"
+                android:paddingTop="@dimen/margin_5dp"
+                android:text="@string/location"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_tv" />
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/location_mv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_header_tv"
+                app:liteMode="true"
+                app:mapType="none" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

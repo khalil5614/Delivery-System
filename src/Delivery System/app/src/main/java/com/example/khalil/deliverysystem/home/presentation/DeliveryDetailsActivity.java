@@ -62,7 +62,6 @@ public class DeliveryDetailsActivity extends AppCompatActivity implements OnMapR
                 descriptionTV.setText(deliveryItem.getmDescription());
                 Glide.with(DeliveryDetailsActivity.this)
                         .load(deliveryItem.getmThumbImage())
-                        .apply(new RequestOptions().override(100, 100).centerCrop())
                         .into(receiverImageImv);
                 setLocationMap();
 
@@ -101,10 +100,7 @@ public class DeliveryDetailsActivity extends AppCompatActivity implements OnMapR
             namedLocation.setLocationName(deliveryItem.getmLocation().getmAddress());
         }
         if (locationMap != null && namedLocation != null) {
-         /*   locationMap.moveCamera(CameraUpdateFactory.newLatLngZoom(namedLocation.getLocation(), 16f));
-            Marker marker = locationMap.addMarker(new MarkerOptions().position(namedLocation.getLocation()).title(namedLocation.getLocationName()).infoWindowAnchor(0.5f, 0.5f));
-            marker.showInfoWindow();
-            locationMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);*/
+
             isLocationSetted = true;
             locationMap.moveCamera(CameraUpdateFactory.newLatLngZoom(namedLocation.getLocation(), 16f));
             locationMap.getUiSettings().setMapToolbarEnabled(false);

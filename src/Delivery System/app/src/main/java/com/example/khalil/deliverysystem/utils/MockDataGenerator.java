@@ -19,8 +19,8 @@ public class MockDataGenerator {
 
             LocationModel address = new LocationModel();
             address.setmAddress("Address of item " + id);
-            address.setmLattitude(22.336093);
-            address.setmLongitude(114.155288);
+            address.setmLattitude(22.336093+i*.0005);
+            address.setmLongitude(114.155288+i*.0005);
             deliveryModel.setmLocation(address);
             deliveryModels.add(deliveryModel);
         }

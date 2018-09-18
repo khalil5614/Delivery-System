@@ -152,6 +152,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void showChangeDeliveryList() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onError(final String message) {
         runOnUiThread(new Runnable() {
             @Override

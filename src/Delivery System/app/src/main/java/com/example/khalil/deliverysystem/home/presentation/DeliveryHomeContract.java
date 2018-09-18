@@ -7,6 +7,7 @@ import java.util.List;
 public interface DeliveryHomeContract {
     interface View {
         void showDeliveryList(List<DeliveryModel> deliveryList);
+        void showChangeDeliveryList();
         void onError(String message);
 
     }

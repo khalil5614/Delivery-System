@@ -36,12 +36,15 @@ public class DeliveryHomePresenter implements DeliveryHomeContract.Presenter {
     private class GetDeliveryListsCallback implements BaseUseCase.UseCaseCallback<GetDeliveryLists.ResponseModel, DeliveryException> {
         @Override
         public void onSuccess(GetDeliveryLists.ResponseModel response) {
+            int prevSize = deliveryModelList.size();
             for (DeliveryModel model : response.getDeliveryList()) {
                 if (!deliveryModelList.contains(model)) {
                     deliveryModelList.add(model);
                 }
             }
-            view.showDeliveryList(deliveryModelList);
+            if (prevSize == 0)
+                view.showDeliveryList(deliveryModelList);
+            else view.showChangeDeliveryList();
         }
 
         @Override
